@@ -69,7 +69,7 @@ def select_test_data(selection_method_name, model_name, num_labels, input_shape,
     elif selection_method_name == 'LSA':
         method = LSASampling
         selection_method = method(model, input_shape, num_labels, model_name=model_name)
-        new_selected_samples_index, metric_values = pool_samples(selection_method, adv_all_x, adv_all_y,
+        new_selected_samples_index, metric_values = select_samples(selection_method, adv_all_x, adv_all_y,
                                                              adv_count, data_group)
 
     selected_samples_data = np.copy(adv_all_x[new_selected_samples_index, :])

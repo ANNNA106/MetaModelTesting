@@ -84,10 +84,10 @@ def art_attack_cifar(data_type='cifar10', modelname='ResNet', attack_type='fgsm'
     accuracy = np.sum(np.argmax(predictions, axis=1) == np.argmax(y_selected_cat, axis=1)) / len(y_selected_cat)
     print("Accuracy on benign test examples: {}%".format(accuracy * 100))
 
-    # Step 6: Generate adversarial test examples
+    # Generate adversarial test examples
     x_test_adv = attack.generate(x=x_selected, y=y_selected_cat)
 
-    # Step 7: Evaluate the ART classifier on adversarial test examples
+    # Evaluate the classifier on adversarial test examples
 
     predictions = classifier.predict(x_test_adv)
     accuracy = np.sum(np.argmax(predictions, axis=1) == np.argmax(y_selected_cat, axis=1)) / len(y_selected_cat)

@@ -108,16 +108,10 @@ def main(argv):
         seed_img_path = os.path.join('./datamodels/Cifar/data/images/cifar100/cifar100_seed', "")
 
     if without_ood_data:
-        withoud_ood_file_postfix = "ID_V2"
+        withoud_ood_file_postfix = "ID"
         adv_GAN_img_path = os.path.join(adv_GAN_img_path, withoud_ood_file_postfix)
         adv_aug_img_path = os.path.join(adv_aug_img_path, withoud_ood_file_postfix)
         adv_attack_img_path = os.path.join(adv_attack_img_path, withoud_ood_file_postfix)
-
-    # layer_before_softmax = tested_model.get_layer("logits")
-    # logits_model = tf.keras.Model(inputs=tested_model.inputs, outputs=layer_before_softmax.output)
-    #
-    # predict_class = np.argmax(y_cat_test, axis=1)
-    # y_test = predict_class.tolist()
 
     if (FLAGS.tested_dataset == 'mnist'):
         transformation_list = ['GAN', 'ACGAN', 'DCGAN', 'Rotate', 'Translate', 'Brightness', 'Blur', 'CW', 'FGSM','PGD']
@@ -175,9 +169,9 @@ def main(argv):
     #Load orig test data
     if (FLAGS.tested_dataset == 'mnist'):
         orig_all_x, orig_all_y = load_adv_test_data(FLAGS.tested_dataset, None, None,
-                                                    orig_img_path, 'mnistorig',  100, load_all_data=False)
+                                                    orig_img_path, 'mnistorig',  0, load_all_data=True)
         seed_all_x, seed_all_y = load_adv_test_data(FLAGS.tested_dataset, None, None,
-                                                    seed_img_path, 'mnistorig', 100, load_all_data=False)
+                                                    seed_img_path, 'mnistorig', 0, load_all_data=True)
     elif (FLAGS.tested_dataset == 'cifar') or (FLAGS.tested_dataset == 'cifar100'):
         orig_all_x, orig_all_y = load_adv_test_data(FLAGS.tested_dataset, None, None,
                                                 orig_img_path, 'cifarorig', 0, load_all_data=True)
@@ -191,25 +185,15 @@ def main(argv):
         if transformation in gan_transformation_list:
             adv_all_gan_x, adv_all_gan_y = load_adv_test_data(FLAGS.tested_dataset, adv_all_gan_x,
                                                               adv_all_gan_y, adv_GAN_img_path,
-                                                              transformation, 100, load_all_data=False)
+                                                              transformation, 0, load_all_data=True)
         elif transformation in aug_transformation_list:
             adv_all_aug_x, adv_all_aug_y = load_adv_test_data(FLAGS.tested_dataset, adv_all_aug_x,
                                                               adv_all_aug_y, adv_aug_img_path,
-                                                              transformation, 100, load_all_data=False)
+                                                              transformation, 0, load_all_data=True)
         elif transformation in adv_transformation_list:
-            if (FLAGS.tested_dataset == 'mnist'):
-                if (transformation == 'PGD' or transformation == 'CW'):
-                    adv_all_attack_x, adv_all_attack_y = load_adv_test_data(FLAGS.tested_dataset, adv_all_attack_x,
-                                                                            adv_all_attack_y, adv_attack_img_path,
-                                                                            transformation, 100, load_all_data=False)
-                else:
-                    adv_all_attack_x, adv_all_attack_y = load_adv_test_data(FLAGS.tested_dataset, adv_all_attack_x,
-                                                                            adv_all_attack_y, adv_attack_img_path,
-                                                                            transformation, 100, load_all_data=False)
-            elif (FLAGS.tested_dataset == 'cifar') or (FLAGS.tested_dataset == 'cifar100'):
-                adv_all_attack_x, adv_all_attack_y = load_adv_test_data(FLAGS.tested_dataset, adv_all_attack_x,
-                                                                        adv_all_attack_y, adv_attack_img_path,
-                                                                        transformation, 0, load_all_data=True)
+            adv_all_attack_x, adv_all_attack_y = load_adv_test_data(FLAGS.tested_dataset, adv_all_attack_x,
+                                                                    adv_all_attack_y, adv_attack_img_path,
+                                                                    transformation, 0, load_all_data=True)
 
     # Construct a data group inlcuding all generated images and original test images (seperated from meta-model training data)
     adv_all_trans_x = np.copy(orig_all_x)
@@ -262,9 +246,9 @@ def main(argv):
             row_index = 0
             gen_y = transformed_label_group_list[column_index]
 
-            #Apply query methods to data groups
+            #Apply selection methods to data groups
             for query_method_name in query_methods:
-                #Select all data according to query method
+                #Select all data according to selection method
                 all_adv_count = len(gen_x)
                 selected_samples_data, selected_samples_label,  metric_values, new_selected_samples_index = select_test_data(
                                         query_method_name, FLAGS.tested_model, num_labels, input_shape,
