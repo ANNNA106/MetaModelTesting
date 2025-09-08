@@ -2,7 +2,7 @@ import os
 import tensorflow as tf
 from keras.datasets import mnist
 import numpy as np
-from keras.utils.np_utils import to_categorical
+from keras.utils import to_categorical
 from datamodels.LoadImages import load_adv_test_data
 from absl import app
 import tensorflow_probability as tfp
