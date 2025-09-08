@@ -27,7 +27,7 @@ flags.DEFINE_string('output_dir', './model/deepensemble/',
                     'The directory where the model weights and '
                     'training/evaluation summaries are stored.')
 flags.DEFINE_float('l2_reg', 1e-4, 'L2 regularization.')
-flags.DEFINE_bool('data_augmentation', True, 'Whether to train with augmented data.')
+# flags.DEFINE_bool('data_augmentation', True, 'Whether to train with augmented data.')
 
 FLAGS = flags.FLAGS
 
