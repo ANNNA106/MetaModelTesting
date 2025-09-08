@@ -8,7 +8,7 @@ import tensorflow as tf
 from art.estimators.classification import KerasClassifier, TensorFlowV2Classifier
 from art.attacks.evasion import FastGradientMethod, ProjectedGradientDescentTensorFlowV2, ProjectedGradientDescentNumpy, CarliniL2Method
 from absl import app, flags
-from keras.utils import np_utils
+from keras.utils import to_categorical
 import os
 
 from TSUtils import saveimage
@@ -37,7 +37,7 @@ def art_attack_cifar(data_type='cifar10', modelname='ResNet', attack_type='fgsm'
 
         x_selected, y_selected = load_adv_test_data('cifar10', None, None,
                                                 orig_img_path, 'cifarorig', seed_size, load_all_data=False)
-        y_selected_cat = np_utils.to_categorical(y_selected, number_of_classes)
+        y_selected_cat = to_categorical(y_selected, number_of_classes)
 
     if data_type == 'cifar100':
         number_of_classes = 100
@@ -49,7 +49,7 @@ def art_attack_cifar(data_type='cifar10', modelname='ResNet', attack_type='fgsm'
 
         x_selected, y_selected = load_adv_test_data('cifar100', None, None,
                                                 orig_img_path, 'cifarorig', seed_size, load_all_data=False)
-        y_selected_cat = np_utils.to_categorical(y_selected, number_of_classes)
+        y_selected_cat = to_categorical(y_selected, number_of_classes)
 
     if data_type == 'mnist':
         number_of_classes = 10
@@ -61,7 +61,7 @@ def art_attack_cifar(data_type='cifar10', modelname='ResNet', attack_type='fgsm'
 
         x_selected, y_selected = load_adv_test_data('mnist', None, None,
                                                 orig_img_path, 'mnistorig', seed_size, load_all_data=False)
-        y_selected_cat = np_utils.to_categorical(y_selected, number_of_classes)
+        y_selected_cat = to_categorical(y_selected, number_of_classes)
 
     #Create the ART classifier
     classifier = KerasClassifier(model=model, clip_values=(0, 1), use_logits=False)
