@@ -8,10 +8,10 @@ import numpy as np
 import tensorflow as tf
 from selectionmethods import UncertaintyUtils
 from keras.datasets import cifar10
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import LearningRateScheduler
 from keras.callbacks import ReduceLROnPlateau
-from keras.utils import np_utils
+from keras.utils import to_categorical
 
 for name in ('ensemble_size', 'batch_size', 'learning_rate', 'output_dir', 'seed', 'train',
              'nb_epochs', 'l2_reg', 'data_aug', 'validation_freq'):
@@ -59,8 +59,8 @@ def generate_VGG_CIFAR_dataset_and_model(ensemble_size=5,
     num_classes = 10
 
     if not variational:
-        y_train = np_utils.to_categorical(y_train, num_classes)
-        y_test = np_utils.to_categorical(y_test, num_classes)
+        y_train = to_categorical(y_train, num_classes)
+        y_test = to_categorical(y_test, num_classes)
 
     x_train = x_train.astype('float32')
     x_test = x_test.astype('float32')
