@@ -6,7 +6,6 @@ from keras.utils import to_categorical
 from datamodels.LoadImages import load_adv_test_data
 from absl import app
 import tensorflow_probability as tfp
-tfd = tfp.distributions
 
 def lenet1(input_shape, num_classes, prob_last_layer=False):
     inputs = tf.keras.layers.Input(shape=input_shape)
@@ -24,14 +23,13 @@ def lenet1(input_shape, num_classes, prob_last_layer=False):
                                        padding='same')(conv2)
     flatten = tf.keras.layers.Flatten()(pool2)
     logits = tf.keras.layers.Dense(num_classes, name='logits')(flatten)
+    # replace the whole if prob_last_layer block in both lenet1/lenet5:
+    
     if prob_last_layer:
-        # Deterministic conversion: return class probabilities
-        outputs = tfp.layers.DistributionLambda(
-            make_distribution_fn=lambda x: tfd.OneHotCategorical(logits=x),
-            convert_to_tensor_fn=lambda d: d.probs_parameter()  # shape: (batch, num_classes)
-        )(logits)
+        # Just return probabilities; downstream can compute entropy/variance.
+        outputs = tf.keras.layers.Softmax(name='predictions')(logits)
     else:
-        outputs = tf.keras.layers.Activation('softmax', name='predictions')(logits)
+        outputs = tf.keras.layers.Softmax(name='predictions')(logits)
     return tf.keras.Model(inputs=inputs, outputs=outputs)
 
 
@@ -54,14 +52,13 @@ def lenet5(input_shape, num_classes, prob_last_layer=False):
     dense0 = tf.keras.layers.Dense(120, activation=tf.nn.relu)(flatten)
     dense1 = tf.keras.layers.Dense(84, activation=tf.nn.relu)(dense0)
     logits = tf.keras.layers.Dense(num_classes, name='logits')(dense1)
+    # replace the whole if prob_last_layer block in both lenet1/lenet5:
+    
     if prob_last_layer:
-        # Deterministic conversion: return class probabilities
-        outputs = tfp.layers.DistributionLambda(
-            make_distribution_fn=lambda x: tfd.OneHotCategorical(logits=x),
-            convert_to_tensor_fn=lambda d: d.probs_parameter()  # shape: (batch, num_classes)
-        )(logits)
+        # Just return probabilities; downstream can compute entropy/variance.
+        outputs = tf.keras.layers.Softmax(name='predictions')(logits)
     else:
-        outputs = tf.keras.layers.Activation('softmax', name='predictions')(logits)
+        outputs = tf.keras.layers.Softmax(name='predictions')(logits)
     return tf.keras.Model(inputs=inputs, outputs=outputs)
 
 def LeNet_dataset_and_model(dataset, train=True, learning_rate=0.001,
