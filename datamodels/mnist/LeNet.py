@@ -24,8 +24,11 @@ def lenet1(input_shape, num_classes, prob_last_layer=False):
     flatten = tf.keras.layers.Flatten()(pool2)
     logits = tf.keras.layers.Dense(num_classes, name='logits')(flatten)
     if prob_last_layer:
-        outputs = tfp.layers.DistributionLambda(lambda x: tfp.distributions.Categorical(logits=x),
-                                                convert_to_tensor_fn=tfp.distributions.Distribution.sample)(logits)
+        # Deterministic conversion: return class probabilities
+        outputs = tfp.layers.DistributionLambda(
+            make_distribution_fn=lambda x: tfd.OneHotCategorical(logits=x),
+            convert_to_tensor_fn=lambda d: d.probs_parameter()  # shape: (batch, num_classes)
+        )(logits)
     else:
         outputs = tf.keras.layers.Activation('softmax', name='predictions')(logits)
     return tf.keras.Model(inputs=inputs, outputs=outputs)
@@ -51,8 +54,11 @@ def lenet5(input_shape, num_classes, prob_last_layer=False):
     dense1 = tf.keras.layers.Dense(84, activation=tf.nn.relu)(dense0)
     logits = tf.keras.layers.Dense(num_classes, name='logits')(dense1)
     if prob_last_layer:
-        outputs = tfp.layers.DistributionLambda(lambda x: tfp.distributions.Categorical(logits=x),
-                                                convert_to_tensor_fn=tfp.distributions.Distribution.sample)(logits)
+        # Deterministic conversion: return class probabilities
+        outputs = tfp.layers.DistributionLambda(
+            make_distribution_fn=lambda x: tfd.OneHotCategorical(logits=x),
+            convert_to_tensor_fn=lambda d: d.probs_parameter()  # shape: (batch, num_classes)
+        )(logits)
     else:
         outputs = tf.keras.layers.Activation('softmax', name='predictions')(logits)
     return tf.keras.Model(inputs=inputs, outputs=outputs)
