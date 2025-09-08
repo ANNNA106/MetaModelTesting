@@ -7,7 +7,7 @@ import numpy as np
 import tensorflow as tf
 from selectionmethods import UncertaintyUtils
 from keras.datasets import cifar100
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import LearningRateScheduler
 from keras.callbacks import ReduceLROnPlateau
 from datamodels.Cifar.WideResNet import wide_resnet
