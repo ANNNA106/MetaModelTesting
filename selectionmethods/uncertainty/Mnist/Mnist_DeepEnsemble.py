@@ -85,7 +85,7 @@ def generate_dataset_and_model(dataset, ensemble_size=1,
                                                                                   from_logits=True))
 
             model.compile(
-                optimizer=tf.keras.optimizers.Adam(lr=learning_rate),
+                optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
                 loss=negative_log_likelihood,
                 metrics=[UncertaintyUtils.MeanMetricWrapper(log_likelihood, name='log_likelihood'),
                          UncertaintyUtils.MeanMetricWrapper(accuracy, name='accuracy'),
