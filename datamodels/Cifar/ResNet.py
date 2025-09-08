@@ -22,8 +22,7 @@ from typing import Iterable
 import tensorflow as tf
 import tensorflow_probability as tfp
 from keras.datasets import cifar10
-from keras.preprocessing.image import ImageDataGenerator
-from keras.utils import np_utils
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import numpy as np
 from absl import app
 import os
@@ -242,8 +241,8 @@ def Resnet_dataset_and_model(train=False, learning_rate=0.1,
     (X_train, y_train), (X_test, y_test) = cifar10.load_data()
 
     # Convert class vectors to binary class matrices.
-    Y_train = np_utils.to_categorical(y_train, nb_classes)
-    Y_test = np_utils.to_categorical(y_test, nb_classes)
+    Y_train = to_categorical(y_train, nb_classes)
+    Y_test = to_categorical(y_test, nb_classes)
 
     X_train = X_train.astype('float32')
     X_test = X_test.astype('float32')
