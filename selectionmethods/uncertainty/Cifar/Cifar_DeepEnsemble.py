@@ -8,7 +8,7 @@ import numpy as np
 import tensorflow as tf
 from selectionmethods import UncertaintyUtils
 from keras.datasets import cifar10
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import LearningRateScheduler
 from keras.callbacks import ReduceLROnPlateau
 
