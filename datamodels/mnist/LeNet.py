@@ -96,10 +96,11 @@ def LeNet_dataset_and_model(dataset, train=True, learning_rate=0.001,
 
     if lenet_family == "Lenet5":
         model = lenet5(x_train.shape[1:], num_classes)
-        filename = os.path.join(output_dir, 'TestedLenet5Model.h5')
     else:
         model = lenet1(x_train.shape[1:], num_classes)
-        filename = os.path.join(output_dir, 'TestedLenet1Model.h5')
+
+    base = 'TestedLenet5Model' if lenet_family == "Lenet5" else 'TestedLenet1Model'
+    filename = os.path.join(output_dir, f'{base}.weights.h5')  
 
     model.compile(
             optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
