@@ -19,7 +19,7 @@ import numpy as np
 from keras.models import load_model
 from matplotlib import pyplot as plt
 import csv
-from keras.utils import np_utils
+from keras.utils import to_categorical
 from keras.models import load_model
 import pandas as pd
 import argparse
@@ -59,8 +59,8 @@ def retrain(x_target, y_test, origin_acc, model, args, layer_names, selectsize=1
     elif measure not in ['SRS', 'MCP']:
         x_select, y_select = select_from_large(selectsize, x_target, target_lst, y_test)
 
-    y_select = np_utils.to_categorical(y_select, 10)
-    y_test = np_utils.to_categorical(y_test, 10)
+    y_select = to_categorical(y_select, 10)
+    y_test = to_categorical(y_test, 10)
 
     model.compile(loss='categorical_crossentropy', optimizer="adadelta", metrics=['accuracy'])
 
@@ -237,7 +237,7 @@ def createdataset(attack, ratio=8):
     y_dest = np.append(y_test[origin_lst], y_test[mutated_lst])
     np.savez('./adv/data/cifar/cifar_' + attack + '_compound9.npz', x_test=x_dest, y_test=y_dest)
 
-    y_dest = np_utils.to_categorical(y_dest, 10)
+    y_dest = to_categorical(y_dest, 10)
     model = load_model(model_path)
     score = model.evaluate(x_dest, y_dest, verbose=0)
     # print('Test Loss: %.4f' % score[0])
