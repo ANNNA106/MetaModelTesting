@@ -17,8 +17,8 @@ import os
 flags.DEFINE_integer('batch_size', 128, 'Batch size.')
 flags.DEFINE_integer('epochs', 150, 'Number of training epochs.')
 flags.DEFINE_float('init_learning_rate', 0.001, 'Learning rate.')
-# flags.DEFINE_bool('data_augmentation', True, 'Whether to use augmented data during training')
-# flags.DEFINE_bool('variational', False, 'Whether to use probabilistic last layer')
+flags.DEFINE_bool('data_augmentation', True, 'Whether to use augmented data during training')
+flags.DEFINE_bool('variational', False, 'Whether to use probabilistic last layer')
 flags.DEFINE_bool('batch_norm', True, 'Whether to use batch normalization layers')
 FLAGS = flags.FLAGS
 
