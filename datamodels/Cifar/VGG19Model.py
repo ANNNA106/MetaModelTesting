@@ -3,22 +3,22 @@ from keras.layers import Dense, Dropout, Flatten, Activation
 from tensorflow.keras import optimizers
 from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import BatchNormalization
-from keras.utils import np_utils
+from keras.utils import to_categorical
 from keras.callbacks import ModelCheckpoint, EarlyStopping, LearningRateScheduler
 import tensorflow_probability as tfp
 from keras.datasets import cifar10
 
 from absl import flags
 
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from absl import app
 import os
 
 flags.DEFINE_integer('batch_size', 128, 'Batch size.')
 flags.DEFINE_integer('epochs', 150, 'Number of training epochs.')
 flags.DEFINE_float('init_learning_rate', 0.001, 'Learning rate.')
-flags.DEFINE_bool('data_augmentation', True, 'Whether to use augmented data during training')
-flags.DEFINE_bool('variational', False, 'Whether to use probabilistic last layer')
+# flags.DEFINE_bool('data_augmentation', True, 'Whether to use augmented data during training')
+# flags.DEFINE_bool('variational', False, 'Whether to use probabilistic last layer')
 flags.DEFINE_bool('batch_norm', True, 'Whether to use batch normalization layers')
 FLAGS = flags.FLAGS
 
@@ -132,8 +132,8 @@ def VGG_model_and_dataset(nb_epoch=150, learning_rate=0.001,
     (X_train, Y_train), (X_test, Y_test) = cifar10.load_data()  # x_train - training data(images), y_train - labels(digits)
 
     # Convert and pre-processing
-    Y_train = np_utils.to_categorical(Y_train, num_classes)
-    Y_test = np_utils.to_categorical(Y_test, num_classes)
+    Y_train = to_categorical(Y_train, num_classes)
+    Y_test = to_categorical(Y_test, num_classes)
     X_train = X_train.astype('float32')
     X_test = X_test.astype('float32')
     X_train /= 255.
