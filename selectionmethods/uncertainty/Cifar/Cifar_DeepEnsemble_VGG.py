@@ -28,8 +28,8 @@ flags.DEFINE_integer('validation_freq', 5, 'Validation frequency in steps.')
 flags.DEFINE_string('output_dir', './model/deepensemble/',
                     'The directory where the model weights and '
                     'training/evaluation summaries are stored.')
-flags.DEFINE_bool('data_augmentation', True, 'Whether to train with augmented data.')
-flags.DEFINE_bool('variational', False, 'Whether to use TFP at last layer')
+# flags.DEFINE_bool('data_augmentation', True, 'Whether to train with augmented data.')
+# flags.DEFINE_bool('variational', False, 'Whether to use TFP at last layer')
 
 FLAGS = flags.FLAGS
 
