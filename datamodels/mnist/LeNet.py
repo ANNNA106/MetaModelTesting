@@ -6,6 +6,7 @@ from keras.utils import to_categorical
 from datamodels.LoadImages import load_adv_test_data
 from absl import app
 import tensorflow_probability as tfp
+tfd = tfp.distributions
 
 def lenet1(input_shape, num_classes, prob_last_layer=False):
     inputs = tf.keras.layers.Input(shape=input_shape)
