@@ -20,7 +20,7 @@ def lenet1(input_shape, num_classes, prob_last_layer=False):
                                  activation='relu')(pool1)
     pool2 = tf.keras.layers.MaxPooling2D(pool_size=[2, 2],
                                        strides=[2, 2],
-                                       padding='SAME')(conv2)
+                                       padding='same')(conv2)
     flatten = tf.keras.layers.Flatten()(pool2)
     logits = tf.keras.layers.Dense(num_classes, name='logits')(flatten)
     if prob_last_layer:
@@ -35,17 +35,17 @@ def lenet5(input_shape, num_classes, prob_last_layer=False):
     inputs = tf.keras.layers.Input(shape=input_shape)
     conv1 = tf.keras.layers.Conv2D(6,
                                  kernel_size=5,
-                                 padding='SAME',
+                                 padding='same',
                                  activation='relu')(inputs)
     pool1 = tf.keras.layers.MaxPooling2D(pool_size=[2, 2],
                                        strides=[2, 2],
-                                       padding='SAME')(conv1)
+                                       padding='same')(conv1)
     conv2 = tf.keras.layers.Conv2D(16,
                                  kernel_size=5,
                                  activation='relu')(pool1)
     pool2 = tf.keras.layers.MaxPooling2D(pool_size=[2, 2],
                                        strides=[2, 2],
-                                       padding='SAME')(conv2)
+                                       padding='same')(conv2)
     flatten = tf.keras.layers.Flatten()(pool2)
     dense0 = tf.keras.layers.Dense(120, activation=tf.nn.relu)(flatten)
     dense1 = tf.keras.layers.Dense(84, activation=tf.nn.relu)(dense0)
