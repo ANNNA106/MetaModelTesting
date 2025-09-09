@@ -113,6 +113,7 @@ if __name__ == "__main__":
     art_attack_cifar(
         data_type='mnist',
         attack_type='fgsm',
+        modelname='Lenet5',
         output_dir='../datamodels/mnist/data/images/mnist_test/'
     )
 
