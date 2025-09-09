@@ -1,3 +1,12 @@
+# Add main block to generate adversarial images when script is run directly
+if __name__ == "__main__":
+    # Example: generate MNIST adversarial images using FGSM and save to mnist_test directory
+    art_attack_cifar(
+        data_type='mnist',
+        modelname='LeNet',
+        attack_type='fgsm',
+        output_dir='../datamodels/mnist/data/images/mnist_test/'
+    )
 import art
 from keras.datasets import mnist, cifar10, cifar100
 import numpy as np
