@@ -11,6 +11,8 @@ from absl import app, flags
 from keras.utils import to_categorical
 import os
 
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from TSUtils import saveimage
 from datamodels.Cifar.ResNet import Resnet_dataset_and_model
 from datamodels.Cifar.WideResNet import WideResnet_dataset_and_model
