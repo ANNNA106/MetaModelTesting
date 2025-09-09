@@ -24,7 +24,7 @@ def load_adv_images(image_directory, num_rows, num_cols, num_chnls, transformati
             im2arr /= 255
 
             if aug_features_data is None:
-                aug_features_data = np.zeros((1, num_rows, num_cols, num_chnls), dtype=np.float)
+                aug_features_data = np.zeros((1, num_rows, num_cols, num_chnls), dtype=float)
                 aug_features_data[0] = im2arr
             else:
                 aug_features_data = np.append(aug_features_data, im2arr, axis=0)
