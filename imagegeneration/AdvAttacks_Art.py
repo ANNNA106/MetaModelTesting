@@ -20,7 +20,7 @@ from datamodels.Cifar.VGG19Model import VGG_model_and_dataset
 from datamodels.LoadImages import load_adv_test_data
 from datamodels.mnist.LeNet import LeNet_dataset_and_model
 
-tf.compat.v1.disable_eager_execution()
+# tf.compat.v1.disable_eager_execution()
 
 def art_attack_cifar(data_type='cifar10', modelname='ResNet', attack_type='fgsm', output_dir= "./"):
 
