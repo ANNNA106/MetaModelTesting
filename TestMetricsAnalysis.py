@@ -72,7 +72,7 @@ def getfaultcounts(tested_model, transformed_data_group_list, transformed_label_
 def main(argv):
     without_ood_data = (FLAGS.OOD_data == False)
     if (FLAGS.tested_dataset == 'mnist'):
-        tested_model, x_test, y_cat_test, weight_filename = LeNet_dataset_and_model("mnist", train=True, lenet_family=FLAGS.tested_model)
+        tested_model, x_test, y_cat_test, weight_filename = LeNet_dataset_and_model("mnist", train=False, lenet_family=FLAGS.tested_model)
         num_labels = 10
         input_shape = (28, 28, 1)
         adv_GAN_img_path = os.path.join('./datamodels/mnist/data/images/generated_inputs_GAN', "")
