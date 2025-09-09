@@ -61,7 +61,7 @@ def lenet5(input_shape, num_classes, prob_last_layer=False):
         outputs = tf.keras.layers.Softmax(name='predictions')(logits)
     return tf.keras.Model(inputs=inputs, outputs=outputs)
 
-def LeNet_dataset_and_model(dataset, train=False, learning_rate=0.001,
+def LeNet_dataset_and_model(dataset, train=True, learning_rate=0.001,
                                batch_size=256, validation_freq=5,
                                training_steps=5000,
                                output_dir="", lenet_family='Lenet5'):
