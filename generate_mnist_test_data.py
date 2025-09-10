@@ -7,7 +7,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 # --- Augmented Data Generation ---
 from imagegeneration.BasicImageTransformations import transform_images
 
-aug_output_dir = 'datamodels/mnist/data/images/generated_inputs_aug'
+aug_output_dir = './datamodels/mnist/data/images/generated_inputs_aug'
 os.makedirs(aug_output_dir, exist_ok=True)
 # Generate all augmentations for MNIST
 for aug_type in ['Rotate', 'Translate', 'Brightness', 'Blur']:
@@ -18,7 +18,7 @@ for aug_type in ['Rotate', 'Translate', 'Brightness', 'Blur']:
 from imagegeneration.AdvAttacks_Art import art_attack_cifar
 
 # Generate adversarial images for Lenet1
-adv_lenet1_dir = 'datamodels/mnist/data/images/generated_inputs_adv_lenet1'
+adv_lenet1_dir = './datamodels/mnist/data/images/generated_inputs_adv_lenet1'
 os.makedirs(adv_lenet1_dir, exist_ok=True)
 for attack_type in ['CW', 'FGSM', 'PGD']:
     print(f"Generating {attack_type} adversarial images for MNIST (Lenet1)...")
@@ -30,7 +30,7 @@ for attack_type in ['CW', 'FGSM', 'PGD']:
     )
 
 # Generate adversarial images for Lenet5
-adv_lenet5_dir = 'datamodels/mnist/data/images/generated_inputs_adv_lenet5'
+adv_lenet5_dir = './datamodels/mnist/data/images/generated_inputs_adv_lenet5'
 os.makedirs(adv_lenet5_dir, exist_ok=True)
 for attack_type in ['CW', 'FGSM', 'PGD']:
     print(f"Generating {attack_type} adversarial images for MNIST (Lenet5)...")
