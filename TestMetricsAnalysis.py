@@ -114,6 +114,7 @@ def main(argv):
         adv_attack_img_path = os.path.join(adv_attack_img_path, withoud_ood_file_postfix)
 
     if (FLAGS.tested_dataset == 'mnist'):
+        print("Testing on Mnist Dataset")
         transformation_list = ['GAN', 'ACGAN', 'DCGAN', 'Rotate', 'Translate', 'Brightness', 'Blur', 'CW', 'FGSM','PGD']
         gan_transformation_list = ['GAN', 'ACGAN', 'DCGAN']
         aug_transformation_list = ['Rotate', 'Translate', 'Brightness', 'Blur']
@@ -156,6 +157,7 @@ def main(argv):
     transformed_label_group_list = []
 
     if (FLAGS.tested_dataset == 'mnist'):
+        print("Loading Deep Ensemble for MNIST")
         ensemble_model, _, _, ensemble_filenames = generate_dataset_and_model("mnist", ensemble_size=5, lenet_family=FLAGS.tested_model)
     elif (FLAGS.tested_dataset == 'cifar'):
         if (FLAGS.tested_model == 'ResNet'):
