@@ -18,16 +18,16 @@ for aug_type in ['Rotate', 'Translate', 'Brightness', 'Blur']:
 from imagegeneration.AdvAttacks_Art import art_attack_cifar
 
 # Generate adversarial images for Lenet1
-adv_lenet1_dir = './datamodels/mnist/data/images/generated_inputs_adv_lenet1'
-os.makedirs(adv_lenet1_dir, exist_ok=True)
-for attack_type in ['CW', 'FGSM', 'PGD']:
-    print(f"Generating {attack_type} adversarial images for MNIST (Lenet1)...")
-    art_attack_cifar(
-        data_type='mnist',
-        modelname='Lenet1',
-        attack_type=attack_type.lower(),  # 'cw', 'fgsm', 'pgd'
-        output_dir=adv_lenet1_dir
-    )
+# adv_lenet1_dir = './datamodels/mnist/data/images/generated_inputs_adv_lenet1'
+# os.makedirs(adv_lenet1_dir, exist_ok=True)
+# for attack_type in ['CW', 'FGSM', 'PGD']:
+#     print(f"Generating {attack_type} adversarial images for MNIST (Lenet1)...")
+#     art_attack_cifar(
+#         data_type='mnist',
+#         modelname='Lenet1',
+#         attack_type=attack_type.lower(),  # 'cw', 'fgsm', 'pgd'
+#         output_dir=adv_lenet1_dir
+#     )
 
 # Generate adversarial images for Lenet5
 adv_lenet5_dir = './datamodels/mnist/data/images/generated_inputs_adv_lenet5'
