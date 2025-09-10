@@ -104,6 +104,7 @@ def generate_dataset_and_model(dataset, ensemble_size=1,
                     os.makedirs(member_dir)
 
                 model.save_weights(member_filename)
+    print("deep enssemble initialized")
 
     return model, x_test, y_test, ensemble_filenames
 
