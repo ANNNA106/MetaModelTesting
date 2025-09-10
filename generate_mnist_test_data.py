@@ -10,9 +10,9 @@ from imagegeneration.BasicImageTransformations import transform_images
 aug_output_dir = './datamodels/mnist/data/images/generated_inputs_aug'
 os.makedirs(aug_output_dir, exist_ok=True)
 # Generate all augmentations for MNIST
-for aug_type in ['Rotate', 'Translate', 'Brightness', 'Blur']:
-    print(f"Generating {aug_type} augmented images for MNIST...")
-    transform_images('mnist', aug_type, 2000, aug_output_dir)
+# for aug_type in ['Rotate', 'Translate', 'Brightness', 'Blur']:
+#     print(f"Generating {aug_type} augmented images for MNIST...")
+#     transform_images('mnist', aug_type, 2000, aug_output_dir)
 
 # --- Adversarial Data Generation ---
 from imagegeneration.AdvAttacks_Art import art_attack_cifar
