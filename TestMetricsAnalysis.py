@@ -116,7 +116,8 @@ def main(argv):
     if (FLAGS.tested_dataset == 'mnist'):
         print("Testing on Mnist Dataset")
         transformation_list = ['GAN', 'ACGAN', 'DCGAN', 'Rotate', 'Translate', 'Brightness', 'Blur', 'CW', 'FGSM','PGD']
-        gan_transformation_list = ['GAN', 'ACGAN', 'DCGAN']
+        gan_transformation_list = []
+      # ['GAN', 'ACGAN', 'DCGAN']
         aug_transformation_list = ['Rotate', 'Translate', 'Brightness', 'Blur']
         adv_transformation_list = ['CW', 'FGSM', 'PGD']
     elif (FLAGS.tested_dataset == 'cifar'):
