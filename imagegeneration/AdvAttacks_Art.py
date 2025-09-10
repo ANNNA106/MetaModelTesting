@@ -56,7 +56,7 @@ def art_attack_cifar(data_type='cifar10', modelname='ResNet', attack_type='fgsm'
     if data_type == 'mnist':
         number_of_classes = 10
         img_rows, img_cols, img_depth = 28, 28, 1
-        model, _, _, _ = LeNet_dataset_and_model("mnist", train=False, lenet_family=modelname)
+        model, _, _, _ = LeNet_dataset_and_model("mnist", train=True, lenet_family=modelname)
         cwd = os.path.dirname(os.path.abspath(__file__))
         orig_img_path = '../datamodels/mnist/data/images/mnist_seed'
         orig_img_path = os.path.join(cwd, orig_img_path)
